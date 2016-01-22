@@ -15,10 +15,15 @@ type Incoming struct {
 	Conn *net.TCPConn
 }
 
-func IncomingFromConn(c *net.TCPConn) (i *Incoming) {
+func portFromConn(c *net.TCPConn) (port int64) {
 	addr := c.LocalAddr().String()
 	splitted := strings.Split(addr, ":")
-	port, _ := strconv.ParseInt(splitted[1], 10, 64)
+	port, _ = strconv.ParseInt(splitted[1], 10, 64)
+	return port
+}
+
+func IncomingFromConn(c *net.TCPConn) (i *Incoming) {
+	port := portFromConn(c)
 	i = &Incoming{
 		Port: port,
 		Conn: c,
@@ -66,6 +71,7 @@ func broker(dst, src *net.TCPConn) {
 	_, err := io.Copy(dst, src)
 	if err != nil {
 		log.Printf("copy error: %s", err)
+		delete(connections, portFromConn(dst))
 	}
 }
 
