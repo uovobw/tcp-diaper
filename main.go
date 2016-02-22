@@ -123,7 +123,7 @@ func split_ports(p string) (ports []int64) {
 
 func main() {
 	kingpin.Parse()
-	log.Printf("sending incoming queries to %s", *destination_host)
+	log.Printf("sending incoming connections to %s", *destination_host)
 
 	if *port_list != "" {
 		ports := split_ports(*port_list)

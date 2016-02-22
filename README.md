@@ -30,8 +30,6 @@ The parameters are:
 - p: comma separated list of ports to use
 - b: the address on which to bind (usually the public interface, usually eth0)
 - d: the destination address to send traffic to, usually 127.0.0.1
-
-
 - k: enable keepalive for the target connection(s)
 - K: time between keepalive packets
 - C: number of failed probes before dropping the connection
